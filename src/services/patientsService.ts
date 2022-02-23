@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import patientsData from "../../data/patients";
-import { Patient } from "../types";
+import { Patient, NewPatient } from "../types";
+import { v4 as uuidv4 } from "uuid";
 
 const getPatients = (): Pick<
   Patient,
@@ -14,6 +16,16 @@ const getPatients = (): Pick<
   }));
 };
 
+const addPatient = (entry: NewPatient): Patient => {
+  const newPatient = {
+    id: uuidv4() as string,
+    ...entry,
+  };
+  patientsData.push(newPatient);
+  return newPatient;
+};
+
 export default {
   getPatients,
+  addPatient,
 };
